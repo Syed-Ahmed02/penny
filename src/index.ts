@@ -1,7 +1,7 @@
 import { OpenAI } from 'openai';
 import { Agent, run, setDefaultOpenAIClient,setTracingDisabled } from '@openai/agents';
 import { config } from 'dotenv';
-import { agent } from './src/agent';
+import { agent } from './agents/orchistartor';
 config({quiet:true});
 
 const customClient = new OpenAI({ 
