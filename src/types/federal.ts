@@ -2,7 +2,7 @@ import { TaxBracket, TaxYear } from "./types";
 
 /**
  * Federal personal income tax brackets for 2025 and 2026
- * Source: https://www.ey.com/en_ca/services/tax/tax-calculators
+ * Source: https://www.canada.ca/en/revenue-agency/services/tax/businesses/topics/payroll/payroll-deductions-contributions/income-tax/reducing-remuneration-subject-income-tax.html
  * Source: https://www.canada.ca/en/revenue-agency/services/tax/individuals/frequently-asked-questions-individuals/canadian-income-tax-rates-individuals-current-previous-years.html
  */
 export const FEDERAL_PERSONAL_TAX_BRACKETS: Record<TaxYear, TaxBracket[]> ={

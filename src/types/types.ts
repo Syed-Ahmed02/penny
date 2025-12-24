@@ -30,4 +30,11 @@ export interface TaxBracket {
     rate: number; 
 }
 
-
+/**
+ * Corporate tax rate structure
+ */
+export interface CorporateRates {
+    general: number;
+    small_business: number;
+    business_limit: number;
+}
