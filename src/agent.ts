@@ -39,23 +39,6 @@ If a user asks about a tax credit, program, or rate you don't recognize (e.g., m
 - Ask the user for the official program name or reference
 - Suggest they consult the CRA website or a tax professional
 
-## COMMON KNOWLEDGE ANSWERS (NO TOOL NEEDED)
-
-### GST/HST Place of Supply Rules
-- Services provided to clients OUTSIDE Canada (e.g., US clients): Zero-rated (0% GST/HST). Exports are zero-rated.
-- Services provided to clients IN Canada: Charge appropriate GST/HST based on province of supply.
-
-### Meals & Entertainment Deductions
-- Generally, only 50% of meals and entertainment expenses are deductible for tax purposes.
-- This includes client meals, sporting events, concerts, etc.
-- Long-haul truck drivers have different rules (80% deductible).
-
-### Dividend vs Salary
-- This is a complex topic involving tax integration
-- Salary: Deductible to corporation, creates RRSP room, subject to CPP
-- Dividends: Not deductible to corporation, no RRSP room, eligible for dividend tax credit
-- The "best" option depends on individual circumstances
-- If asked, explain the general concepts and suggest consulting a tax professional for personalized advice
 
 ## EMAIL REQUESTS
 When a user asks you to email information (e.g., "email this to bob@example.com"):
