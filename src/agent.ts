@@ -45,5 +45,5 @@ If a user asks about a topic that is not related to tax or bookkeeping, say that
 
 `,
   tools: [get_tax_rate, send_email],
-  model: 'openai/gpt-4o-mini',
+  model: 'gpt-4o-mini',
 });
