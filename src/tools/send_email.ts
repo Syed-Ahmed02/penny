@@ -26,7 +26,7 @@ Extract the email address from the user's message and format the content into a 
     const messageId = generateMockMessageId();
     
     console.log('\n' + '='.repeat(60));
-    console.log('📧 MOCK EMAIL SENT');
+    console.log('MOCK EMAIL SENT');
     console.log('='.repeat(60));
     console.log(`To: ${to_address}`);
     console.log(`Subject: ${subject}`);

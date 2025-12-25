@@ -1,7 +1,6 @@
 import { Runner } from '@openai/agents';
 import type { Agent } from '@openai/agents';
 
-// ANSI color codes for terminal output
 const colors = {
   reset: '\x1b[0m',
   dim: '\x1b[2m',
@@ -12,9 +11,6 @@ const colors = {
   blue: '\x1b[34m',
 };
 
-/**
- * Print a trace step with consistent formatting
- */
 function printStep(icon: string, label: string, detail?: string): void {
   const timestamp = new Date().toLocaleTimeString('en-US', { hour12: false });
   const prefix = `${colors.dim}[${timestamp}]${colors.reset}`;
@@ -26,17 +22,11 @@ function printStep(icon: string, label: string, detail?: string): void {
   }
 }
 
-/**
- * Truncate long strings for display
- */
 function truncate(str: string, maxLen: number = 200): string {
   if (str.length <= maxLen) return str;
   return str.slice(0, maxLen) + '...';
 }
 
-/**
- * Safely extract and format tool info from an item
- */
 function formatToolInfo(item: any): { name: string; args: string; output: string } {
   const rawItem = item?.rawItem || item;
   let name = 'unknown';
@@ -66,14 +56,8 @@ function formatToolInfo(item: any): { name: string; args: string; output: string
   return { name, args, output };
 }
 
-// Create a shared runner instance
 const runner = new Runner();
 
-/**
- * Run an agent with streaming and print trace events to the console
- * Returns the final output string
- * @param runnerInstance Optional Runner instance to reuse for conversation history
- */
 export async function runWithTrace(
   agent: Agent<any, any>, 
   query: string, 
@@ -85,14 +69,10 @@ export async function runWithTrace(
   let finalOutput = '';
   let hasStartedOutput = false;
 
-  // Process all events from the stream
   for await (const event of stream) {
-    // Handle raw model stream events (contains the text deltas)
     if (event.type === 'raw_model_stream_event') {
       const data = event.data as any;
       
-      // Look for text delta events
-      // The structure can vary - check common patterns
       if (data?.type === 'response.output_text.delta' && data?.delta) {
         if (!hasStartedOutput) {
           process.stdout.write(`\n${colors.green}Assistant:${colors.reset} `);
@@ -108,7 +88,6 @@ export async function runWithTrace(
         process.stdout.write(data.delta.text);
         finalOutput += data.delta.text;
       } else if (data?.delta?.content) {
-        // Another possible format
         if (!hasStartedOutput) {
           process.stdout.write(`\n${colors.green}Assistant:${colors.reset} `);
           hasStartedOutput = true;
@@ -118,12 +97,10 @@ export async function runWithTrace(
       }
     }
 
-    // Agent updated events
     if (event.type === 'agent_updated_stream_event') {
       printStep('🤖', `Agent: ${event.agent?.name || 'Unknown'}`);
     }
 
-    // Run item stream events (tool calls, reasoning, etc.)
     if (event.type === 'run_item_stream_event') {
       const { name, item } = event as any;
       
@@ -145,7 +122,6 @@ export async function runWithTrace(
         }
         
         case 'message_output_created': {
-          // Extract text from message output if we haven't streamed it
           const rawItem = (item as any)?.rawItem;
           if (rawItem?.content) {
             const content = Array.isArray(rawItem.content) 
@@ -178,12 +154,10 @@ export async function runWithTrace(
     }
   }
 
-  // Ensure we end on a new line
   if (hasStartedOutput) {
     console.log('\n');
   }
   
-  // Wait for completion
   await stream.completed;
   
   return finalOutput;

@@ -17,7 +17,7 @@ export const FEDERAL_PERSONAL_TAX_BRACKETS: Record<TaxYear, TaxBracket[]> ={
         { min: 0, max: 58523.00 , rate: 0.14 },
         { min: 58523.01, max: 117045.00, rate: 0.205 },
         { min: 117045.01, max: 181440, rate: 0.26 },
-        { min: 181440.01 , max: 25848200, rate: 0.29 },
+        { min: 181440.01 , max: 258482, rate: 0.29 },
         { min: 258482.01, max: null, rate: 0.33 },
     ]
 }

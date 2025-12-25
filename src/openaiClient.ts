@@ -5,9 +5,14 @@ import { config } from 'dotenv';
 export function initializeOpenAIClient(): void {
   config();
 
+  const apiKey = process.env.OPENROUTER_API_KEY || process.env.OPENAI_API_KEY;
+  const baseURL = process.env.OPENROUTER_API_KEY 
+    ? 'https://openrouter.ai/api/v1'
+    : undefined;
+
   const customClient = new OpenAI({
-    baseURL: 'https://openrouter.ai/api/v1',
-    apiKey: process.env.OPENROUTER_API_KEY
+    apiKey,
+    ...(baseURL && { baseURL }),
   });
 
   setDefaultOpenAIClient(customClient);
