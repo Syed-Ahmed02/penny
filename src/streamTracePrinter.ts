@@ -72,9 +72,15 @@ const runner = new Runner();
 /**
  * Run an agent with streaming and print trace events to the console
  * Returns the final output string
+ * @param runnerInstance Optional Runner instance to reuse for conversation history
  */
-export async function runWithTrace(agent: Agent<any, any>, query: string): Promise<string> {
-  const stream = await runner.run(agent, query, { stream: true });
+export async function runWithTrace(
+  agent: Agent<any, any>, 
+  query: string, 
+  runnerInstance?: Runner
+): Promise<string> {
+  const runnerToUse = runnerInstance ?? runner;
+  const stream = await runnerToUse.run(agent, query, { stream: true });
   
   let finalOutput = '';
   let hasStartedOutput = false;

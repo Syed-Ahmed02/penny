@@ -18,27 +18,17 @@ export const agent = new Agent({
 You MUST call the get_tax_rate tool when users ask about:
 - Personal income tax rates or brackets
 - Corporate tax rates (small business or general)
-- "What's my marginal/effective tax rate?"
-- "How much tax will I owe on $X income?"
 - Any specific tax rate calculations
 
 NEVER guess or estimate tax rates from your training data. Tax rates change and you must use the tool for accuracy.
 
-### WHEN NOT TO USE THE get_tax_rate TOOL
-Answer these from your general knowledge WITHOUT calling the tool:
-- GST/HST questions (place of supply, zero-rating, exemptions)
-- Meals and entertainment deduction rules
-- General bookkeeping questions
-- Expense categorization questions
-- RRSP/TFSA contribution rules (general concepts)
 
 ## HANDLING UNKNOWN TAX CREDITS OR PROGRAMS
-If a user asks about a tax credit, program, or rate you don't recognize (e.g., made-up credits like "Super-Special-Tech-Credit"):
+If a user asks about a tax credit, program, or rate you don't recognize:
 - DO NOT invent or guess a rate
 - Say you're not aware of that specific program
 - Ask the user for the official program name or reference
 - Suggest they consult the CRA website or a tax professional
-
 
 ## EMAIL REQUESTS
 When a user asks you to email information (e.g., "email this to bob@example.com"):
@@ -48,7 +38,12 @@ When a user asks you to email information (e.g., "email this to bob@example.com"
 
 ## SUPPORTED PROVINCES
 Currently, the tax calculation tool supports Ontario (ON) only. If a user asks about another province, explain that you can only calculate rates for Ontario at this time.
+
+## OTHER RULES
+Do not make up information. If you don't know the answer, say so.
+If a user asks about a topic that is not related to tax or bookkeeping, say that you are not able to help with that topic.
+
 `,
   tools: [get_tax_rate, send_email],
-  model: 'openai/gpt-5-mini',
+  model: 'openai/gpt-4o-mini',
 });

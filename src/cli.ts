@@ -4,6 +4,7 @@ import { initializeOpenAIClient } from './openaiClient';
 import { agent } from './agent';
 import { getAllDemoScenarios, type DemoScenario } from './demoScenarios';
 import { runWithTrace } from './streamTracePrinter';
+import { Runner } from '@openai/agents';
 
 const colors = {
   reset: '\x1b[0m',
@@ -61,19 +62,25 @@ async function runAllTests(): Promise<void> {
 }
 
 async function askCustomQuestion(rl: readline.Interface): Promise<void> {
-  console.log(`\n${colors.cyan}Enter your question (or 'back' to return to menu):${colors.reset}`);
+  console.log(`\n${colors.cyan}Interactive conversation mode (type 'back' to return to menu)${colors.reset}\n`);
   
-  const question = await rl.question(`${colors.bold}> ${colors.reset}`);
+  const runner = new Runner();
   
-  if (question.toLowerCase() === 'back' || question.trim() === '') {
-    return;
+  while (true) {
+    const question = await rl.question(`${colors.bold}> ${colors.reset}`);
+    
+    if (question.toLowerCase() === 'back' || question.trim() === '') {
+      return;
+    }
+    
+    console.log(`\n${colors.dim}${THIN_DIVIDER}${colors.reset}`);
+    
+    try {
+      await runWithTrace(agent, question, runner);
+    } catch (error) {
+      console.error(`\n${colors.yellow}Error: ${error instanceof Error ? error.message : error}${colors.reset}\n`);
+    }
   }
-  
-  console.log(`\n${colors.dim}${THIN_DIVIDER}${colors.reset}`);
-  
-  await runWithTrace(agent, question);
-  
-  console.log();
 }
 
 async function main(): Promise<void> {
